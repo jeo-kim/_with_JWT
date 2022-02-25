@@ -71,4 +71,16 @@ public class PostController {
         return ResponseEntity.ok().body(postId);
     };
 
+    @DeleteMapping("/post/{postId}")
+    public ResponseEntity<String> deletePost(@PathVariable Long postId) {
+        if (!userService.getMyUserWithAuthorities().isPresent()) {
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        }
+        User user = userService.getMyUserWithAuthorities().get();
+        String deletedImageUrl = postService.deletePost(postId, user);
+        return ResponseEntity.ok().body(deletedImageUrl);
+
+    }
+
+
 }
