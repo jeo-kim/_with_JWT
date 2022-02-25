@@ -60,4 +60,15 @@ public class PostController {
         return responseDto;
     }
 
+    @PutMapping("post/{postId}")
+    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
+        if (!userService.getMyUserWithAuthorities().isPresent()) {
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        }
+        postInputValidator.areValidInputs(requestDto);
+        User user = userService.getMyUserWithAuthorities().get();
+        postService.update(postId, user, requestDto);
+        return ResponseEntity.ok().body(postId);
+    };
+
 }
