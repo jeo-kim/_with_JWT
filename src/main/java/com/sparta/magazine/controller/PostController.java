@@ -50,4 +50,14 @@ public class PostController {
         return postsToFE;
     }
 
+    @GetMapping("post/{postId}")
+    public PostResponseDto getSinglePost(@PathVariable Long postId) {
+        Long userId = Long.valueOf(-1);
+        if (userService.getMyUserWithAuthorities().isPresent()) {
+            userId = userService.getMyUserWithAuthorities().get().getUserId();
+        }
+        PostResponseDto responseDto = postService.getSinglePost(postId, userId);
+        return responseDto;
+    }
+
 }
