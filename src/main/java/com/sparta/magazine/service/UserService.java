@@ -26,7 +26,7 @@ public class UserService {
     @Transactional
     public User signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
         Authority authority = Authority.builder()
