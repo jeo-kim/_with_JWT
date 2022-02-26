@@ -31,7 +31,7 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String contents;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 9999)
     private String imageUrl;
 
     @Column(nullable = false)

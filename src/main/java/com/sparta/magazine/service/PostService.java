@@ -30,7 +30,7 @@ public class PostService {
         return save.getId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts(Long userId, Pageable pageable) {
 
         List<Post> posts = postRepository.findAllFetched(pageable);
@@ -43,7 +43,7 @@ public class PostService {
         return postsToFE;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public PostResponseDto getSinglePost(Long post_id, Long userId) {
         Optional<Post> optionalPost = postRepository.findById(post_id);
         if (optionalPost.isPresent()) {

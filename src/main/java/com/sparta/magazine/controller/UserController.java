@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class UserController {
