@@ -6,6 +6,7 @@ import com.sparta.magazine.entity.LayoutType;
 import com.sparta.magazine.entity.Like;
 import com.sparta.magazine.entity.Timestamped;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;

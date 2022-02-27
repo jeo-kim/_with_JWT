@@ -30,9 +30,7 @@ public class PostController {
     public ResponseEntity<PostRequestDto> createPost(
             @Valid @RequestBody PostRequestDto postRequestDto
     ) {
-        if (!userService.getMyUserWithAuthorities().isPresent()) {
-            throw new IllegalArgumentException("로그인하지 않은 사용자는 포스팅할 수 없습니다.");
-        }
+        checkLogin("포스팅을 위해서는 로그인이 필요합니다.");
         postInputValidator.areValidInputs(postRequestDto);
         User user = userService.getMyUserWithAuthorities().get();
         postService.createPost(user, postRequestDto);
@@ -61,9 +59,7 @@ public class PostController {
 
     @PutMapping("post/{postId}")
     public ResponseEntity<Long> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto) {
-        if (!userService.getMyUserWithAuthorities().isPresent()) {
-            throw new IllegalArgumentException("로그인이 필요합니다.");
-        }
+        checkLogin("수정을 위해서는 로그인이 필요합니다.");
         postInputValidator.areValidInputs(requestDto);
         User user = userService.getMyUserWithAuthorities().get();
         postService.update(postId, user, requestDto);
@@ -72,13 +68,17 @@ public class PostController {
 
     @DeleteMapping("/post/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable Long postId) {
-        if (!userService.getMyUserWithAuthorities().isPresent()) {
-            throw new IllegalArgumentException("로그인이 필요합니다.");
-        }
+        checkLogin("삭제를 위해서는 로그인이 필요합니다.");
         User user = userService.getMyUserWithAuthorities().get();
         String deletedImageUrl = postService.deletePost(postId, user);
         return ResponseEntity.ok().body(deletedImageUrl);
 
+    }
+
+    private void checkLogin(String s) {
+        if (!userService.getMyUserWithAuthorities().isPresent()) {
+            throw new IllegalArgumentException(s);
+        }
     }
 
 
