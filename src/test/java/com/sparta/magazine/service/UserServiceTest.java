@@ -4,7 +4,6 @@ import com.sparta.magazine.dto.UserDto;
 import com.sparta.magazine.entity.Authority;
 import com.sparta.magazine.entity.User;
 import com.sparta.magazine.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
