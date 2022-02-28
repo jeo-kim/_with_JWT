@@ -17,7 +17,6 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @Transactional
 @SpringBootTest
 class PostServiceTest {
@@ -28,7 +27,6 @@ class PostServiceTest {
     PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
-
 
     @BeforeEach
     void resetRepository() {
@@ -54,7 +52,6 @@ class PostServiceTest {
         assertEquals(requestDto.getContents(), save.getContents());
         assertEquals(requestDto.getLayoutType(), save.getLayoutType());
     }
-
 
 
     @Test

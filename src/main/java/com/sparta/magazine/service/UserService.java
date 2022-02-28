@@ -25,6 +25,11 @@ public class UserService {
 
     @Transactional
     public User signup(UserDto userDto) {
+
+        if (userRepository.findOneByUsername(userDto.getUsername()).orElse(null) != null) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+        }
+
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
