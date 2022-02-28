@@ -83,7 +83,7 @@ public class PostService {
     }
 
     //프론트에서 보여줄 양식대로 재편성하는 작업(닉네임, 좋아요 수, 각 게시물과 로그인한 사용자의 좋아요 관계 등)
-    private PostResponseDto convertToPostFE(Long userId, Post post) {
+    PostResponseDto convertToPostFE(Long userId, Post post) {
         Long postId = post.getId();
         String nickname = post.getUser().getNickname();
         String createdAt = String.valueOf(post.getCreatedAt());
