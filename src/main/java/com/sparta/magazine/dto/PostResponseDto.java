@@ -1,6 +1,7 @@
 package com.sparta.magazine.dto;
 
 import com.sparta.magazine.entity.LayoutType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @RequiredArgsConstructor
+@Builder
 public class PostResponseDto {
     private final Long postId;
     private final String nickname;

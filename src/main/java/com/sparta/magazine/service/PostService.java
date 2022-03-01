@@ -27,6 +27,7 @@ public class PostService {
     public Long createPost(User user, PostRequestDto postRequestDto) {
         Post post = new Post(user, postRequestDto);
         Post save = postRepository.save(post);
+
         return save.getId();
     }
 
@@ -84,12 +85,7 @@ public class PostService {
 
     //프론트에서 보여줄 양식대로 재편성하는 작업(닉네임, 좋아요 수, 각 게시물과 로그인한 사용자의 좋아요 관계 등)
     PostResponseDto convertToPostFE(Long userId, Post post) {
-        Long postId = post.getId();
-        String nickname = post.getUser().getNickname();
-        String createdAt = String.valueOf(post.getCreatedAt());
-        String contents = post.getContents();
-        String imageUrl = post.getImageUrl();
-        LayoutType layoutType = post.getLayoutType();
+
         Boolean isMe = (Objects.equals(post.getUser().getUserId(), userId));
 
         List<Like> likes = post.getLikes();
@@ -101,7 +97,20 @@ public class PostService {
                 break;
             }
         }
-        PostResponseDto postToFE = new PostResponseDto(postId, nickname, createdAt, contents, imageUrl, likeCnt, userLiked, layoutType, isMe);
+
+        PostResponseDto.PostResponseDtoBuilder builder = PostResponseDto.builder()
+                .postId(post.getId())
+                .nickname(post.getUser().getNickname())
+                .createdAt(String.valueOf(post.getCreatedAt()))
+                .contents(post.getContents())
+                .likeCnt(likeCnt)
+                .userLiked(userLiked)
+                .imageUrl(post.getImageUrl())
+                .layoutType(post.getLayoutType())
+                .isMe(isMe);
+
+        PostResponseDto postToFE = builder.build();
+
         return postToFE;
     }
 
