@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class URLValidatorTest {
+class UrlValidatorTest {
 
     @Test
     @DisplayName("URL 형태: 정상")
