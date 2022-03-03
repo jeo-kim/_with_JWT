@@ -8,6 +8,7 @@ import com.sparta.magazine.service.PostService;
 import com.sparta.magazine.service.UserService;
 import com.sparta.magazine.validator.PostInputValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class PostController {
 
     private final UserService userService;
@@ -54,6 +56,7 @@ public class PostController {
             userId = userService.getMyUserWithAuthorities().get().getUserId();
         }
         PostResponseDto responseDto = postService.getSinglePost(postId, userId);
+        log.info("단일 게시글의 정보를 출력합니다.");
         return responseDto;
     }
 

@@ -8,6 +8,8 @@ import com.sparta.magazine.entity.Post;
 import com.sparta.magazine.entity.User;
 import com.sparta.magazine.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
@@ -45,7 +48,10 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "post")
     public PostResponseDto getSinglePost(Long post_id, Long userId) {
+        log.info("단일 게시글의 정보를 조회합니다.");
+
         Optional<Post> optionalPost = postRepository.findById(post_id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();

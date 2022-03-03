@@ -9,11 +9,14 @@ import com.sparta.magazine.entity.User;
 //import com.sparta.magazine.exception.DuplicateMemberException;
 import com.sparta.magazine.repository.UserRepository;
 import com.sparta.magazine.util.SecurityUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -58,8 +61,10 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "user_info")
     public Optional<User> getMyUserWithAuthorities() {
 //        return UserDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername).orElse(null));
+        log.info("로그인한 유저의 정보를 조회합니다.");
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
     }
 }
