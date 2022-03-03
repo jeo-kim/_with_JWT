@@ -48,7 +48,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "post")
+//    @Cacheable(value = "post")
     public PostResponseDto getSinglePost(Long post_id, Long userId) {
         log.info("단일 게시글의 정보를 조회합니다.");
 

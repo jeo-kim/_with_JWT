@@ -16,9 +16,9 @@ public class CachingConfig {
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         cacheManager.setCaches(Arrays.asList(
-                new ConcurrentMapCache("user_info"),
-                new ConcurrentMapCache("post")
-                )); //todo 추가할 캐시의 이름.
+//                new ConcurrentMapCache("user_info"),
+//                new ConcurrentMapCache("post")
+                ));
         return cacheManager;
     }
 }

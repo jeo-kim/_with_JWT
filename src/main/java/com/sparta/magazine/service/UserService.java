@@ -61,7 +61,6 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "user_info")
     public Optional<User> getMyUserWithAuthorities() {
 //        return UserDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername).orElse(null));
         log.info("로그인한 유저의 정보를 조회합니다.");
